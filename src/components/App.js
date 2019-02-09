@@ -8,7 +8,7 @@ import React from "react";
 // FIXME: Remove import -> Used for testing
 import Calc from "./Calc";
 
-const App = props => {
+export default function App(props) {
   return (
     <div className="app">
       {/* FIXME: Uncomment */}
@@ -20,6 +20,4 @@ const App = props => {
       <Calc />
     </div>
   );
-};
-
-export default App;
+}

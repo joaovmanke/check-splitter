@@ -1,4 +1,7 @@
 import React, { Component } from "react";
+import { connect } from "react-redux";
+
+import { typeDigit } from "../actions";
 
 import "./Calc.css";
 
@@ -18,8 +21,8 @@ export default class Calc extends Component {
   }
 }
 
-// TODO: Class methods and hook up redux
-class Actions extends Component {
+// TODO: Class methods
+class _Actions extends Component {
   clear() {
     return true;
   }
@@ -58,10 +61,12 @@ class Actions extends Component {
   }
 }
 
-// TODO: Class method and hook up redux
-class Numbers extends Component {
+const Actions = connect()(_Actions);
+
+// TODO: Class method
+class _Numbers extends Component {
   type(toType) {
-    return true;
+    this.props.typeDigit(toType);
   }
 
   render() {
@@ -69,61 +74,61 @@ class Numbers extends Component {
       <div className="calc__numbers">
         <button
           className="calc__button calc__button--numbers"
-          onClick={() => this.type(7)}
+          onClick={() => this.type("7")}
         >
           <span>7</span>
         </button>
         <button
           className="calc__button calc__button--numbers"
-          onClick={() => this.type(8)}
+          onClick={() => this.type("8")}
         >
           <span>8</span>
         </button>
         <button
           className="calc__button calc__button--numbers"
-          onClick={() => this.type(9)}
+          onClick={() => this.type("9")}
         >
           <span>9</span>
         </button>
         <button
           className="calc__button calc__button--numbers"
-          onClick={() => this.type(4)}
+          onClick={() => this.type("4")}
         >
           <span>4</span>
         </button>
         <button
           className="calc__button calc__button--numbers"
-          onClick={() => this.type(5)}
+          onClick={() => this.type("5")}
         >
           <span>5</span>
         </button>
         <button
           className="calc__button calc__button--numbers"
-          onClick={() => this.type(6)}
+          onClick={() => this.type("6")}
         >
           <span>6</span>
         </button>
         <button
           className="calc__button calc__button--numbers"
-          onClick={() => this.type(1)}
+          onClick={() => this.type("1")}
         >
           <span>1</span>
         </button>
         <button
           className="calc__button calc__button--numbers"
-          onClick={() => this.type(2)}
+          onClick={() => this.type("2")}
         >
           <span>2</span>
         </button>
         <button
           className="calc__button calc__button--numbers"
-          onClick={() => this.type(3)}
+          onClick={() => this.type("3")}
         >
           <span>3</span>
         </button>
         <button
           className="calc__button calc__button--numbers calc__button--double"
-          onClick={() => this.type(0)}
+          onClick={() => this.type("0")}
         >
           <span>0</span>
         </button>
@@ -138,8 +143,15 @@ class Numbers extends Component {
   }
 }
 
-// TODO: Class methods and hook up redux
-class Operations extends Component {
+const Numbers = connect(
+  () => ({}),
+  {
+    typeDigit
+  }
+)(_Numbers);
+
+// TODO: Class methods
+class _Operations extends Component {
   divide() {
     return true;
   }
@@ -197,3 +209,5 @@ class Operations extends Component {
     );
   }
 }
+
+const Operations = connect()(_Operations);
