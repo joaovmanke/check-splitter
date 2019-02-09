@@ -6,3 +6,10 @@ export function typeDigit(digit) {
     payload: digit
   };
 }
+
+export function clearDigits() {
+  return {
+    type: actionNames.CLEAR,
+    payload: null
+  };
+}

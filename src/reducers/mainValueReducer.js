@@ -8,6 +8,9 @@ export default (state = "0", { type, payload }) => {
       }
       return `${state}${payload}`;
 
+    case actionNames.CLEAR:
+      return "0";
+
     default:
       return state;
   }

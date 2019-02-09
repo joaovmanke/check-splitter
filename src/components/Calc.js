@@ -1,21 +1,37 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
 
-import { typeDigit } from "../actions";
+import { typeDigit, clearDigits } from "../actions";
 
 import "./Calc.css";
 
 export default class Calc extends Component {
+  state = {
+    visible: false
+  };
+
+  showHide() {
+    if (this.state.visible) {
+      this.setState({ visible: false });
+    } else {
+      this.setState({ visible: true });
+    }
+  }
+
   render() {
     return (
       <div className="calc">
-        {/* TODO: Calculator icon */}
-        <i />
-        <div className="calc__pad">
-          <Actions />
-          <Numbers />
-          <Operations />
-        </div>
+        <i
+          className="calc__icon large calculator icon"
+          onClick={() => this.showHide()}
+        />
+        {this.state.visible ? (
+          <div className="calc__pad">
+            <Actions />
+            <Numbers />
+            <Operations />
+          </div>
+        ) : null}
       </div>
     );
   }
@@ -24,7 +40,7 @@ export default class Calc extends Component {
 // TODO: Class methods
 class _Actions extends Component {
   clear() {
-    return true;
+    this.props.clearDigits();
   }
 
   sign() {
@@ -61,9 +77,11 @@ class _Actions extends Component {
   }
 }
 
-const Actions = connect()(_Actions);
+const Actions = connect(
+  () => ({}),
+  { clearDigits }
+)(_Actions);
 
-// TODO: Class method
 class _Numbers extends Component {
   type(toType) {
     this.props.typeDigit(toType);

@@ -1,4 +1,17 @@
+.calc__icon {
+  /* FIXME: Padding -> Adjust */
+  padding: 5px;
+}
+
+.calc__icon:active {
+  /* FIXME: Click Highlight -> Find best way to highlight click */
+  opacity: 0.5;
+}
+
 .calc__pad {
+  position: relative;
+  top: 100%;
+
   display: grid;
 
   grid-template-columns: 3fr 1fr;
@@ -10,7 +23,7 @@
   margin: 0;
   padding: 0;
 
-  /* FIXME: Font size -> Preferrably a varible */
+  /* FIXME: Font size -> Preferably a variable */
   font-size: 2em;
 }
 
