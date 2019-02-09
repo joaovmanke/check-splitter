@@ -13,3 +13,17 @@ export function clearDigits() {
     payload: null
   };
 }
+
+export function changeSign() {
+  return {
+    type: actionNames.SIGN,
+    payload: null
+  };
+}
+
+export function deleteDigit() {
+  return {
+    type: actionNames.DELETE,
+    payload: null
+  };
+}

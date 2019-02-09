@@ -1,4 +1,6 @@
 export default {
   TYPE: "TYPE",
-  CLEAR: "CLEAR"
+  CLEAR: "CLEAR",
+  SIGN: "SIGN",
+  DELETE: "DELETE"
 };

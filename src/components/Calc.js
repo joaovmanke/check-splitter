@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
 
-import { typeDigit, clearDigits } from "../actions";
+import { typeDigit, clearDigits, changeSign, deleteDigit } from "../actions";
 
 import "./Calc.css";
 
@@ -37,18 +37,17 @@ export default class Calc extends Component {
   }
 }
 
-// TODO: Class methods
 class _Actions extends Component {
   clear() {
     this.props.clearDigits();
   }
 
-  sign() {
-    return true;
+  back() {
+    this.props.deleteDigit();
   }
 
-  percent() {
-    return true;
+  sign() {
+    this.props.changeSign();
   }
 
   render() {
@@ -62,15 +61,15 @@ class _Actions extends Component {
         </button>
         <button
           className="calc__button calc__button--actions"
-          onClick={() => this.sign()}
+          onClick={() => this.back()}
         >
-          <span>+/-</span>
+          <span>{"<-"}</span>
         </button>
         <button
           className="calc__button calc__button--actions"
-          onClick={() => this.percent()}
+          onClick={() => this.sign()}
         >
-          <span>%</span>
+          <span>+/-</span>
         </button>
       </div>
     );
@@ -79,7 +78,7 @@ class _Actions extends Component {
 
 const Actions = connect(
   () => ({}),
-  { clearDigits }
+  { clearDigits, changeSign, deleteDigit }
 )(_Actions);
 
 class _Numbers extends Component {
