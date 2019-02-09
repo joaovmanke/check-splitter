@@ -1,0 +1,95 @@
+.calc__pad {
+  display: grid;
+
+  grid-template-columns: 3fr 1fr;
+  grid-template-rows: 1fr 4fr;
+  grid-template-areas:
+    "action operation"
+    "number operation";
+
+  margin: 0;
+  padding: 0;
+
+  /* FIXME: Font size -> Preferrably a varible */
+  font-size: 2em;
+}
+
+.calc__actions {
+  grid-area: action;
+
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+
+  margin: 0;
+  padding: 0;
+
+  font-size: 1em;
+}
+
+.calc__numbers {
+  grid-area: number;
+
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+
+  margin: 0;
+  padding: 0;
+
+  font-size: 1em;
+}
+
+.calc__operations {
+  grid-area: operation;
+
+  display: grid;
+  grid-template-columns: 1fr;
+
+  margin: 0;
+  padding: 0;
+
+  font-size: 1em;
+}
+
+.calc__button {
+  /* FIXME: Height -> Probably dynamically from js */
+  height: 10vh;
+
+  display: grid;
+
+  justify-content: center;
+  align-content: center;
+
+  margin: 0;
+  padding: 0;
+  /* FIXME: Border color -> Make variable */
+  border: solid #333338 1px;
+
+  color: white;
+
+  font-size: 1em;
+}
+
+.calc__button:active {
+  filter: brightness(150%);
+}
+
+.calc__button--actions {
+  /* FIXME: Background color -> Make variable */
+  background-color: #48494a;
+}
+
+.calc__button--numbers {
+  /* FIXME: Background color -> Make variable */
+  background-color: #696a6a;
+}
+
+.calc__button--operations {
+  /* FIXME: Background color -> Make variable */
+  background-color: #ff9f0a;
+}
+
+.calc__button--double {
+  grid-column: span 2;
+
+  padding-right: 50%;
+}
