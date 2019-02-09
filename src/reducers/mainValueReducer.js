@@ -1,15 +1,17 @@
 import actionNames from "../actions/actionNames";
 
-export default (state = "0", { type, payload }) => {
+const initialState = "0";
+
+export default (state = initialState, { type, payload }) => {
   switch (type) {
     case actionNames.TYPE:
-      if (state === "0" && payload !== ".") {
+      if (state === initialState && payload !== ".") {
         return payload;
       }
       return `${state}${payload}`;
 
     case actionNames.CLEAR:
-      return "0";
+      return initialState;
 
     case actionNames.SIGN:
       if (state[0] === "-") {
@@ -19,7 +21,7 @@ export default (state = "0", { type, payload }) => {
 
     case actionNames.DELETE:
       if (state.length === 1) {
-        return "0";
+        return initialState;
       }
       return state.slice(0, -1);
 
