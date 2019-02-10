@@ -6,16 +6,22 @@ import {
   clearDigits,
   changeSign,
   deleteDigit,
-  resolveOperation,
-  setOperator
+  setDigits
 } from "../actions";
 
 import "./Calc.css";
 
-export default class Calc extends Component {
-  state = {
-    visible: false
-  };
+class Calc extends Component {
+  constructor(props) {
+    super(props);
+
+    this.state = {
+      visible: false
+    };
+
+    this.savedValue = null;
+    this.operation = null;
+  }
 
   showHide() {
     if (this.state.visible) {
@@ -23,6 +29,30 @@ export default class Calc extends Component {
     } else {
       this.setState({ visible: true });
     }
+  }
+
+  async setOperation(operation) {
+    await this.resolve();
+    this.savedValue = this.props.mainValue;
+    this.operation = operation;
+    this.props.clearDigits();
+  }
+
+  async resolve() {
+    const { mainValue, setDigits } = this.props;
+
+    if (this.operation) {
+      const result = this.operation(this.savedValue, mainValue);
+      await setDigits((Math.round(result * 100) / 100).toString());
+      this.savedValue = null;
+      this.operation = null;
+    }
+  }
+
+  clear() {
+    this.props.clearDigits();
+    this.savedValue = null;
+    this.operation = null;
   }
 
   render() {
@@ -34,9 +64,16 @@ export default class Calc extends Component {
         />
         {this.state.visible ? (
           <div className="calc__pad">
-            <Actions />
-            <Numbers />
-            <Operations />
+            <Actions
+              clear={() => this.clear()}
+              back={() => this.props.deleteDigit()}
+              sign={() => this.props.changeSign()}
+            />
+            <Numbers typeDigit={d => this.props.typeDigit(d)} />
+            <Operations
+              set={o => this.setOperation(o)}
+              resolve={() => this.resolve()}
+            />
           </div>
         ) : null}
       </div>
@@ -44,196 +81,140 @@ export default class Calc extends Component {
   }
 }
 
-class _Actions extends Component {
-  clear() {
-    this.props.clearDigits();
-  }
-
-  back() {
-    this.props.deleteDigit();
-  }
-
-  sign() {
-    this.props.changeSign();
-  }
-
-  render() {
-    return (
-      <div className="calc__actions">
-        <button
-          className="calc__button calc__button--actions"
-          onClick={() => this.clear()}
-        >
-          <span>C</span>
-        </button>
-        <button
-          className="calc__button calc__button--actions"
-          onClick={() => this.back()}
-        >
-          <span>{"<-"}</span>
-        </button>
-        <button
-          className="calc__button calc__button--actions"
-          onClick={() => this.sign()}
-        >
-          <span>+/-</span>
-        </button>
-      </div>
-    );
-  }
+function mapStateToProps({ mainValue }) {
+  return { mainValue: Number(mainValue) };
 }
 
-const Actions = connect(
-  () => ({}),
-  { clearDigits, changeSign, deleteDigit }
-)(_Actions);
+export default connect(
+  mapStateToProps,
+  { typeDigit, clearDigits, deleteDigit, changeSign, setDigits }
+)(Calc);
 
-class _Numbers extends Component {
-  type(toType) {
-    this.props.typeDigit(toType);
-  }
+const Actions = ({ clear, back, sign }) => (
+  <div className="calc__actions">
+    <button
+      className="calc__button calc__button--actions"
+      onClick={() => clear()}
+    >
+      <span>C</span>
+    </button>
+    <button
+      className="calc__button calc__button--actions"
+      onClick={() => back()}
+    >
+      <span>{"<-"}</span>
+    </button>
+    <button
+      className="calc__button calc__button--actions"
+      onClick={() => sign()}
+    >
+      <span>+/-</span>
+    </button>
+  </div>
+);
 
-  render() {
-    return (
-      <div className="calc__numbers">
-        <button
-          className="calc__button calc__button--numbers"
-          onClick={() => this.type("7")}
-        >
-          <span>7</span>
-        </button>
-        <button
-          className="calc__button calc__button--numbers"
-          onClick={() => this.type("8")}
-        >
-          <span>8</span>
-        </button>
-        <button
-          className="calc__button calc__button--numbers"
-          onClick={() => this.type("9")}
-        >
-          <span>9</span>
-        </button>
-        <button
-          className="calc__button calc__button--numbers"
-          onClick={() => this.type("4")}
-        >
-          <span>4</span>
-        </button>
-        <button
-          className="calc__button calc__button--numbers"
-          onClick={() => this.type("5")}
-        >
-          <span>5</span>
-        </button>
-        <button
-          className="calc__button calc__button--numbers"
-          onClick={() => this.type("6")}
-        >
-          <span>6</span>
-        </button>
-        <button
-          className="calc__button calc__button--numbers"
-          onClick={() => this.type("1")}
-        >
-          <span>1</span>
-        </button>
-        <button
-          className="calc__button calc__button--numbers"
-          onClick={() => this.type("2")}
-        >
-          <span>2</span>
-        </button>
-        <button
-          className="calc__button calc__button--numbers"
-          onClick={() => this.type("3")}
-        >
-          <span>3</span>
-        </button>
-        <button
-          className="calc__button calc__button--numbers calc__button--double"
-          onClick={() => this.type("0")}
-        >
-          <span>0</span>
-        </button>
-        <button
-          className="calc__button calc__button--numbers"
-          onClick={() => this.type(".")}
-        >
-          <span>.</span>
-        </button>
-      </div>
-    );
-  }
-}
+const Numbers = ({ typeDigit }) => (
+  <div className="calc__numbers">
+    <button
+      className="calc__button calc__button--numbers"
+      onClick={() => typeDigit("7")}
+    >
+      <span>7</span>
+    </button>
+    <button
+      className="calc__button calc__button--numbers"
+      onClick={() => typeDigit("8")}
+    >
+      <span>8</span>
+    </button>
+    <button
+      className="calc__button calc__button--numbers"
+      onClick={() => typeDigit("9")}
+    >
+      <span>9</span>
+    </button>
+    <button
+      className="calc__button calc__button--numbers"
+      onClick={() => typeDigit("4")}
+    >
+      <span>4</span>
+    </button>
+    <button
+      className="calc__button calc__button--numbers"
+      onClick={() => typeDigit("5")}
+    >
+      <span>5</span>
+    </button>
+    <button
+      className="calc__button calc__button--numbers"
+      onClick={() => typeDigit("6")}
+    >
+      <span>6</span>
+    </button>
+    <button
+      className="calc__button calc__button--numbers"
+      onClick={() => typeDigit("1")}
+    >
+      <span>1</span>
+    </button>
+    <button
+      className="calc__button calc__button--numbers"
+      onClick={() => typeDigit("2")}
+    >
+      <span>2</span>
+    </button>
+    <button
+      className="calc__button calc__button--numbers"
+      onClick={() => typeDigit("3")}
+    >
+      <span>3</span>
+    </button>
+    <button
+      className="calc__button calc__button--numbers calc__button--double"
+      onClick={() => typeDigit("0")}
+    >
+      <span>0</span>
+    </button>
+    <button
+      className="calc__button calc__button--numbers"
+      onClick={() => typeDigit(".")}
+    >
+      <span>.</span>
+    </button>
+  </div>
+);
 
-const Numbers = connect(
-  () => ({}),
-  {
-    typeDigit
-  }
-)(_Numbers);
-
-class _Operations extends Component {
-  divide() {
-    this.props.setOperator("(a, b) => a / b");
-  }
-
-  product() {
-    this.props.setOperator("(a, b) => a * b");
-  }
-
-  subtract() {
-    this.props.setOperator("(a, b) => a - b");
-  }
-
-  add() {
-    this.props.setOperator("(a, b) => a + b");
-  }
-
-  resolve() {
-    this.props.resolveOperation();
-  }
-
-  render() {
-    return (
-      <div className="calc__operations">
-        <button
-          className="calc__button calc__button--operations"
-          onClick={() => this.divide()}
-        >
-          <span>/</span>
-        </button>
-        <button
-          className="calc__button calc__button--operations"
-          onClick={() => this.product()}
-        >
-          <span>*</span>
-        </button>
-        <button
-          className="calc__button calc__button--operations"
-          onClick={() => this.subtract()}
-        >
-          <span>-</span>
-        </button>
-        <button
-          className="calc__button calc__button--operations"
-          onClick={() => this.add()}
-        >
-          <span>+</span>
-        </button>
-        <button
-          className="calc__button calc__button--operations"
-          onClick={() => this.resolve()}
-        >
-          <span>=</span>
-        </button>
-      </div>
-    );
-  }
-}
-
-const Operations = connect(
-  () => ({}),
-  { resolveOperation, setOperator }
-)(_Operations);
+const Operations = ({ set, resolve }) => (
+  <div className="calc__operations">
+    <button
+      className="calc__button calc__button--operations"
+      onClick={() => set((a, b) => a / b)}
+    >
+      <span>/</span>
+    </button>
+    <button
+      className="calc__button calc__button--operations"
+      onClick={() => set((a, b) => a * b)}
+    >
+      <span>*</span>
+    </button>
+    <button
+      className="calc__button calc__button--operations"
+      onClick={() => set((a, b) => a - b)}
+    >
+      <span>-</span>
+    </button>
+    <button
+      className="calc__button calc__button--operations"
+      onClick={() => set((a, b) => a + b)}
+    >
+      <span>+</span>
+    </button>
+    <button
+      className="calc__button calc__button--operations"
+      onClick={() => resolve()}
+    >
+      <span>=</span>
+    </button>
+  </div>
+);
