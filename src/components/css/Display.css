@@ -1,0 +1,13 @@
+.display {
+  display: flex;
+  justify-content: space-between;
+
+  padding: var(--smallPadding);
+  border: var(--Black) solid 1px;
+
+  background-color: white;
+  color: var(--Black);
+
+  font-size: 1.5em;
+  font-weight: bold;
+}

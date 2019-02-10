@@ -9,7 +9,7 @@ import {
   setDigits
 } from "../actions";
 
-import "./Calc.css";
+import "./css/Calc.css";
 
 class Calc extends Component {
   constructor(props) {
@@ -65,7 +65,7 @@ class Calc extends Component {
     return (
       <div className="calc">
         <i
-          className="calc__icon large calculator icon"
+          className="calc__icon big calculator icon"
           onClick={() => this.showHide()}
         />
         {this.state.visible ? (

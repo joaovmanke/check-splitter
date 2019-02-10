@@ -1,13 +1,15 @@
 import React from "react";
 
-// TODO: THIS
-class Header extends React.Component {
-  render() {
-    return (
-      <div className="header">
-        <Calc />
-        <Display prefix="$" />
-      </div>
-    );
-  }
-}
+import Calc from "./Calc";
+import Display from "./Display";
+
+import "./css/Header.css";
+
+const Header = () => (
+  <div className="header">
+    <Calc />
+    <Display prefix="$" />
+  </div>
+);
+
+export default Header;

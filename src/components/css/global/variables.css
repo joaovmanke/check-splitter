@@ -1,0 +1,12 @@
+:root {
+  --smallestPadding: 5px;
+  --smallPadding: 15px;
+
+  --mainOrange: #fa9c00;
+  --mainDark: #28343b;
+  --mainLight: #394e57;
+
+  --Gray: #696a6a;
+  --DarkGray: #48494a;
+  --Black: #333338;
+}

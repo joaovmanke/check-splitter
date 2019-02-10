@@ -1,16 +1,23 @@
+.calc {
+  box-sizing: content-box;
+  position: relative;
+}
+
 .calc__icon {
-  /* FIXME: Padding -> Adjust */
-  padding: 5px;
+  padding: var(--smallPadding);
+  padding-left: 0;
 }
 
 .calc__icon:active {
-  /* FIXME: Click Highlight -> Find best way to highlight click */
   opacity: 0.5;
 }
 
 .calc__pad {
-  position: relative;
-  top: 100%;
+  box-sizing: border-box;
+  position: absolute;
+
+  width: 100vw;
+  height: 100vw;
 
   display: grid;
 
@@ -20,10 +27,9 @@
     "action operation"
     "number operation";
 
-  margin: 0;
+  margin: var(--smallPadding) 0 0 calc(-1 * var(--smallPadding));
   padding: 0;
 
-  /* FIXME: Font size -> Preferably a variable */
   font-size: 2em;
 }
 
@@ -64,8 +70,7 @@
 }
 
 .calc__button {
-  /* FIXME: Height -> Probably dynamically from js */
-  height: 10vh;
+  height: 20vw;
 
   display: grid;
 
@@ -74,8 +79,7 @@
 
   margin: 0;
   padding: 0;
-  /* FIXME: Border color -> Make variable */
-  border: solid #333338 1px;
+  border: solid var(--Black) 1px;
 
   color: white;
 
@@ -87,18 +91,15 @@
 }
 
 .calc__button--actions {
-  /* FIXME: Background color -> Make variable */
-  background-color: #48494a;
+  background-color: var(--DarkGray);
 }
 
 .calc__button--numbers {
-  /* FIXME: Background color -> Make variable */
-  background-color: #696a6a;
+  background-color: var(--Gray);
 }
 
 .calc__button--operations {
-  /* FIXME: Background color -> Make variable */
-  background-color: #ff9f0a;
+  background-color: var(--mainOrange);
 }
 
 .calc__button--double {
