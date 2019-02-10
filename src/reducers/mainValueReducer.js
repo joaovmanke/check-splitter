@@ -11,6 +11,7 @@ export default (state = initialState, { type, payload }) => {
       return `${state}${payload}`;
 
     case actionNames.CLEAR:
+    case actionNames.CLEAR_MAIN:
       return initialState;
 
     case actionNames.SIGN:
@@ -24,6 +25,10 @@ export default (state = initialState, { type, payload }) => {
         return initialState;
       }
       return state.slice(0, -1);
+
+    case actionNames.RESOLVE:
+      // eslint-disable-next-line
+      return eval(payload.operation)(payload.savedValue, Number(state));
 
     default:
       return state;

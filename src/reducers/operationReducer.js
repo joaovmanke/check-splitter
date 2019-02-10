@@ -5,6 +5,7 @@ const initialState = null;
 export default (state = initialState, { type, payload }) => {
   switch (type) {
     case actionNames.CLEAR:
+    case actionNames.CLEAR_OPERATOR:
       return initialState;
 
     case actionNames.NEW_OPERATOR:

@@ -1,7 +1,14 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
 
-import { typeDigit, clearDigits, changeSign, deleteDigit } from "../actions";
+import {
+  typeDigit,
+  clearDigits,
+  changeSign,
+  deleteDigit,
+  resolveOperation,
+  setOperator
+} from "../actions";
 
 import "./Calc.css";
 
@@ -167,26 +174,25 @@ const Numbers = connect(
   }
 )(_Numbers);
 
-// TODO: Class methods
 class _Operations extends Component {
   divide() {
-    return true;
+    this.props.setOperator("(a, b) => a / b");
   }
 
   product() {
-    return true;
+    this.props.setOperator("(a, b) => a * b");
   }
 
   subtract() {
-    return true;
+    this.props.setOperator("(a, b) => a - b");
   }
 
   add() {
-    return true;
+    this.props.setOperator("(a, b) => a + b");
   }
 
   resolve() {
-    return true;
+    this.props.resolveOperation();
   }
 
   render() {
@@ -227,4 +233,7 @@ class _Operations extends Component {
   }
 }
 
-const Operations = connect()(_Operations);
+const Operations = connect(
+  () => ({}),
+  { resolveOperation, setOperator }
+)(_Operations);
