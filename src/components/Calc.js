@@ -31,19 +31,25 @@ class Calc extends Component {
     }
   }
 
-  async setOperation(operation) {
-    await this.resolve();
-    this.savedValue = this.props.mainValue;
+  calculate() {
+    return this.operation(this.savedValue, this.props.mainValue);
+  }
+
+  setOperation(operation) {
+    if (this.operation) {
+      this.savedValue = this.calculate();
+    } else {
+      this.savedValue = this.props.mainValue;
+    }
     this.operation = operation;
     this.props.clearDigits();
   }
 
-  async resolve() {
-    const { mainValue, setDigits } = this.props;
-
+  resolve() {
     if (this.operation) {
-      const result = this.operation(this.savedValue, mainValue);
-      await setDigits((Math.round(result * 100) / 100).toString());
+      this.props.setDigits(
+        (Math.round(this.calculate() * 100) / 100).toString()
+      );
       this.savedValue = null;
       this.operation = null;
     }
