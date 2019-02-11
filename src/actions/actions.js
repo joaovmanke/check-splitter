@@ -40,6 +40,13 @@ export function setDigits(digits) {
 export function newDivider(name) {
   return {
     type: actionNames.ADD_DIVIDER,
-    payload: { name, amount: 0, key: uniqid() }
+    payload: { name, amount: 0, id: uniqid() }
+  };
+}
+
+export function toggleSelectionDivider(id) {
+  return {
+    type: actionNames.SELECT_DIVIDER,
+    payload: id
   };
 }

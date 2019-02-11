@@ -8,9 +8,7 @@ import "./css/Util.css";
 
 class Util extends Component {
   renderDividers() {
-    return this.props.dividers.map(({ name, amount, key }) => (
-      <Divider key={key} name={name} amount={amount} />
-    ));
+    return this.props.dividers.map(({ id }) => <Divider key={id} id={id} />);
   }
   render() {
     return (
