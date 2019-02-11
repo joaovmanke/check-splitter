@@ -1,3 +1,5 @@
+import uniqid from "uniqid";
+
 import actionNames from "./actionNames";
 
 export function typeDigit(digit) {
@@ -32,5 +34,12 @@ export function setDigits(digits) {
   return {
     type: actionNames.SET,
     payload: digits
+  };
+}
+
+export function newDivider(name) {
+  return {
+    type: actionNames.ADD_DIVIDER,
+    payload: { name, amount: 0, key: uniqid() }
   };
 }

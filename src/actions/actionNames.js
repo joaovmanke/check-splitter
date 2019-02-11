@@ -3,5 +3,7 @@ export default {
   CLEAR: "CLEAR",
   SIGN: "SIGN",
   DELETE: "DELETE",
-  SET: "SET"
+  SET: "SET",
+  ADD_DIVIDER: "ADD_DIVIDER",
+  REMOVE_DIVIDER: "REMOVE_DIVIDER"
 };

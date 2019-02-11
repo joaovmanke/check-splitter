@@ -1,0 +1,15 @@
+.util {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+
+  padding: var(--mediumPadding);
+
+  grid-gap: var(--smallPadding);
+}
+
+.util__wrapper {
+  min-height: 100vh;
+
+  background-color: var(--mainDark);
+  color: white;
+}

@@ -1,0 +1,14 @@
+.divider-creator {
+  display: grid;
+
+  justify-items: center;
+  align-items: center;
+
+  padding: var(--mediumPadding);
+  border: var(--mainOrange) dashed 2px;
+  border-radius: var(--mediumPadding);
+
+  background-color: var(--mainLight);
+
+  font-size: 2em;
+}

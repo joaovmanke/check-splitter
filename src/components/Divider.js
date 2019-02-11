@@ -1,9 +1,11 @@
 import React from "react";
 
+import "./css/Divider.css";
+
 const Divider = props => (
   <div className="divider">
-    <span>IDK</span>
-    <span>Still DK</span>
+    <span>{props.name}</span>
+    <span>${props.amount.toFixed(2)}</span>
   </div>
 );
 

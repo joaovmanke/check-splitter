@@ -1,6 +1,7 @@
 :root {
   --smallestPadding: 5px;
   --smallPadding: 15px;
+  --mediumPadding: 20px;
 
   --mainOrange: #fa9c00;
   --mainDark: #28343b;

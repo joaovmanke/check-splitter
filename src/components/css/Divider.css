@@ -1,0 +1,12 @@
+.divider {
+  display: grid;
+  grid-template-columns: 1fr;
+
+  padding: var(--mediumPadding);
+  border: var(--mainOrange) solid 2px;
+  border-radius: var(--mediumPadding);
+
+  background-color: var(--mainLight);
+
+  font-size: 1.25em;
+}

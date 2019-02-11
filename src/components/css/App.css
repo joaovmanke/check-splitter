@@ -1,2 +1,9 @@
 @import "./global/global.css";
 @import "./global/variables.css";
+
+.app__header {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+}

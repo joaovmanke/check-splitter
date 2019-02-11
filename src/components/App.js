@@ -23,14 +23,12 @@ export default class App extends Component {
   render() {
     return (
       <div className="app">
-        <div style={{ position: "fixed", top: 0, left: 0, right: 0 }}>
+        <div className="app__header">
           <div ref={this.headerRef}>
             <Header />
           </div>
         </div>
-        <div style={{ paddingTop: this.state.topClear }}>
-          <Util />
-        </div>
+        <Util padTop={this.state.topClear} />
 
         {/* FIXME: Uncomment */}
         {/* <CommandBlock /> */}
