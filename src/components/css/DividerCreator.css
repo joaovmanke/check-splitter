@@ -12,3 +12,7 @@
 
   font-size: 2em;
 }
+
+.divider-creator:active {
+  filter: brightness(150%);
+}
