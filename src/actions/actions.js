@@ -1,6 +1,7 @@
 import uniqid from "uniqid";
 
-import actionNames from "./actionNames";
+import { appEmitter } from "../index";
+import actionNames, { emitterActionNames } from "./actionNames";
 
 export function typeDigit(digit) {
   return {
@@ -48,5 +49,20 @@ export function toggleSelectionDivider(id) {
   return {
     type: actionNames.SELECT_DIVIDER,
     payload: id
+  };
+}
+
+export function splitMainValue() {
+  return (dispatch, getState) => {
+    const { mainValue, selected } = getState();
+    const splitValue =
+      Math.round((100 * Number(mainValue)) / selected.length) / 100;
+    selected.forEach(id =>
+      dispatch({
+        type: actionNames.ADD_TO_DIVIDER,
+        payload: { id, amount: splitValue }
+      })
+    );
+    appEmitter.emit(emitterActionNames.CLEAR_CALC);
   };
 }

@@ -1,6 +1,9 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
 
+import { appEmitter } from "../index";
+import { emitterActionNames } from "../actions/actionNames";
+
 import {
   typeDigit,
   clearDigits,
@@ -21,6 +24,8 @@ class Calc extends Component {
 
     this.savedValue = null;
     this.operation = null;
+
+    appEmitter.addListener(emitterActionNames.CLEAR_CALC, () => this.clear());
   }
 
   showHide() {

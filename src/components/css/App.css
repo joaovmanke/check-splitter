@@ -7,3 +7,10 @@
   left: 0;
   right: 0;
 }
+
+.app__command-block {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+}

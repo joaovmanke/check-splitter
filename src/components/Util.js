@@ -12,7 +12,13 @@ class Util extends Component {
   }
   render() {
     return (
-      <div className="util__wrapper" style={{ paddingTop: this.props.padTop }}>
+      <div
+        className="util__wrapper"
+        style={{
+          paddingTop: this.props.padTop,
+          paddingBottom: this.props.padBottom
+        }}
+      >
         <div className="util">
           {this.renderDividers()}
           <DividerCreator />
