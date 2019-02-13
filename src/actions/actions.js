@@ -1,7 +1,9 @@
 import uniqid from "uniqid";
+import { EventEmitter } from "fbemitter";
 
-import { appEmitter } from "../index";
 import actionNames, { emitterActionNames } from "./actionNames";
+
+export const appEmitter = new EventEmitter();
 
 export function typeDigit(digit) {
   return {
@@ -65,4 +67,32 @@ export function splitMainValue() {
     );
     appEmitter.emit(emitterActionNames.CLEAR_CALC);
   };
+}
+
+export function mergeDividers() {
+  return (dispatch, getState) => {
+    let { selected, dividers } = getState();
+    selected = [...selected];
+    const firstSelected = selected.shift();
+    console.log(firstSelected);
+    console.log(selected);
+    selected.forEach(id => {
+      dispatch({
+        type: actionNames.ADD_TO_DIVIDER,
+        payload: {
+          id: firstSelected,
+          amount: dividers.find(divider => divider.id === id).amount
+        }
+      });
+      dispatch(toggleSelectionDivider(id));
+      dispatch({
+        type: actionNames.REMOVE_DIVIDER,
+        payload: id
+      });
+    });
+  };
+}
+
+export function subscribeTo(actionName, toRun) {
+  appEmitter.addListener(actionName, toRun);
 }

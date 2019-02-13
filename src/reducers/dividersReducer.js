@@ -7,6 +7,9 @@ export default (state = initialState, { type, payload }) => {
     case actionNames.ADD_DIVIDER:
       return [...state, payload];
 
+    case actionNames.REMOVE_DIVIDER:
+      return state.filter(divider => divider.id !== payload);
+
     case actionNames.ADD_TO_DIVIDER:
       const newState = [...state];
       const { id, amount } = payload;

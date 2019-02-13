@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
 
-import { splitMainValue } from "../actions";
+import { splitMainValue, mergeDividers } from "../actions";
 
 import "./css/CommandBlock.css";
 
@@ -15,7 +15,10 @@ class CommandBlock extends Component {
         >
           <span>Split</span>
         </button>
-        <button className="command-block__button">
+        <button
+          className="command-block__button"
+          onClick={() => this.props.mergeDividers()}
+        >
           <span>Merge</span>
         </button>
         <button className="command-block__button">
@@ -37,5 +40,5 @@ class CommandBlock extends Component {
 
 export default connect(
   () => ({}),
-  { splitMainValue }
+  { splitMainValue, mergeDividers }
 )(CommandBlock);
