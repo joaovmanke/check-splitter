@@ -3,7 +3,7 @@ import { EventEmitter } from "fbemitter";
 
 import actionNames, { emitterActionNames } from "./actionNames";
 
-export const appEmitter = new EventEmitter();
+const appEmitter = new EventEmitter();
 
 export function typeDigit(digit) {
   return {
