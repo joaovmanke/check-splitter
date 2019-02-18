@@ -1,7 +1,12 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
 
-import { splitMainValue, mergeDividers, deleteSelected } from "../actions";
+import {
+  splitMainValue,
+  mergeDividers,
+  deleteSelected,
+  popState
+} from "../actions";
 
 import "./css/CommandBlock.css";
 
@@ -27,7 +32,10 @@ class CommandBlock extends Component {
         >
           <span>Delete</span>
         </button>
-        <button className="command-block__button">
+        <button
+          className="command-block__button"
+          onClick={() => this.props.popState()}
+        >
           <span>Undo</span>
         </button>
         <button className="command-block__button">
@@ -43,5 +51,5 @@ class CommandBlock extends Component {
 
 export default connect(
   () => ({}),
-  { splitMainValue, mergeDividers, deleteSelected }
+  { splitMainValue, mergeDividers, deleteSelected, popState }
 )(CommandBlock);

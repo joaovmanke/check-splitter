@@ -17,6 +17,10 @@ export default (state = initialState, { type, payload }) => {
         newState.findIndex(divider => divider.id === id)
       ].amount += amount;
       return newState;
+
+    case actionNames.SET_STATE:
+      return payload.dividers;
+
     default:
       return state;
   }

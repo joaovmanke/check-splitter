@@ -1,5 +1,6 @@
 import uniqid from "uniqid";
 import { EventEmitter } from "fbemitter";
+import $ from "jquery";
 
 import actionNames, { emitterActionNames } from "./actionNames";
 
@@ -75,8 +76,30 @@ export function removeSelectionDivider(id) {
   };
 }
 
+export function saveState(state) {
+  return {
+    type: actionNames.PUSH_STATE,
+    payload: state
+  };
+}
+
+export function removeSavedState() {
+  return {
+    type: actionNames.POP_STATE,
+    payload: null
+  };
+}
+
+export function setState(state) {
+  return {
+    type: actionNames.SET_STATE,
+    payload: state
+  };
+}
+
 export function splitMainValue() {
   return (dispatch, getState) => {
+    dispatch(pushState());
     const { mainValue, selected } = getState();
     const splitValue =
       Math.round((100 * Number(mainValue)) / selected.length) / 100;
@@ -87,6 +110,7 @@ export function splitMainValue() {
 
 export function mergeDividers() {
   return (dispatch, getState) => {
+    dispatch(pushState());
     let { selected, dividers } = getState();
     selected = [...selected];
     const firstSelected = selected.shift();
@@ -105,11 +129,30 @@ export function mergeDividers() {
 
 export function deleteSelected() {
   return (dispatch, getState) => {
+    dispatch(pushState());
     const { selected } = getState();
     selected.forEach(id => {
       dispatch(removeSelectionDivider(id));
       dispatch(removeDivider(id));
     });
+  };
+}
+
+export function pushState() {
+  return (dispatch, getState) => {
+    const state = $.extend(true, {}, getState());
+    delete state.history;
+    dispatch(saveState(state));
+  };
+}
+
+export function popState() {
+  return (dispatch, getState) => {
+    const lastState = getState().history[0];
+    if (lastState) {
+      dispatch(removeSavedState());
+      dispatch(setState(lastState));
+    }
   };
 }
 

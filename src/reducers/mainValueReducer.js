@@ -28,6 +28,9 @@ export default (state = initialState, { type, payload }) => {
     case actionNames.SET:
       return payload;
 
+    case actionNames.SET_STATE:
+      return payload.mainValue;
+
     default:
       return state;
   }
