@@ -47,6 +47,20 @@ export function newDivider(name) {
   };
 }
 
+export function removeDivider(id) {
+  return {
+    type: actionNames.REMOVE_DIVIDER,
+    payload: id
+  };
+}
+
+export function addToDivider(id, amount) {
+  return {
+    type: actionNames.ADD_TO_DIVIDER,
+    payload: { id, amount }
+  };
+}
+
 export function toggleSelectionDivider(id) {
   return {
     type: actionNames.SELECT_DIVIDER,
@@ -59,12 +73,7 @@ export function splitMainValue() {
     const { mainValue, selected } = getState();
     const splitValue =
       Math.round((100 * Number(mainValue)) / selected.length) / 100;
-    selected.forEach(id =>
-      dispatch({
-        type: actionNames.ADD_TO_DIVIDER,
-        payload: { id, amount: splitValue }
-      })
-    );
+    selected.forEach(id => dispatch(addToDivider(id, splitValue)));
     appEmitter.emit(emitterActionNames.CLEAR_CALC);
   };
 }
@@ -77,18 +86,14 @@ export function mergeDividers() {
     console.log(firstSelected);
     console.log(selected);
     selected.forEach(id => {
-      dispatch({
-        type: actionNames.ADD_TO_DIVIDER,
-        payload: {
-          id: firstSelected,
-          amount: dividers.find(divider => divider.id === id).amount
-        }
-      });
+      dispatch(
+        addToDivider(
+          firstSelected,
+          dividers.find(divider => divider.id === id).amount
+        )
+      );
       dispatch(toggleSelectionDivider(id));
-      dispatch({
-        type: actionNames.REMOVE_DIVIDER,
-        payload: id
-      });
+      dispatch(removeDivider(id));
     });
   };
 }
