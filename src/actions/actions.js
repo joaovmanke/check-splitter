@@ -68,6 +68,13 @@ export function toggleSelectionDivider(id) {
   };
 }
 
+export function removeSelectionDivider(id) {
+  return {
+    type: actionNames.REMOVE_SELECTION,
+    payload: id
+  };
+}
+
 export function splitMainValue() {
   return (dispatch, getState) => {
     const { mainValue, selected } = getState();
@@ -83,8 +90,6 @@ export function mergeDividers() {
     let { selected, dividers } = getState();
     selected = [...selected];
     const firstSelected = selected.shift();
-    console.log(firstSelected);
-    console.log(selected);
     selected.forEach(id => {
       dispatch(
         addToDivider(
@@ -93,6 +98,16 @@ export function mergeDividers() {
         )
       );
       dispatch(toggleSelectionDivider(id));
+      dispatch(removeDivider(id));
+    });
+  };
+}
+
+export function deleteSelected() {
+  return (dispatch, getState) => {
+    const { selected } = getState();
+    selected.forEach(id => {
+      dispatch(removeSelectionDivider(id));
       dispatch(removeDivider(id));
     });
   };

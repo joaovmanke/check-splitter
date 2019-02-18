@@ -10,6 +10,12 @@ export default (state = initialState, { type, payload }) => {
       }
       return [...state, payload];
 
+    case actionNames.REMOVE_SELECTION:
+      if (state.find(id => id === payload)) {
+        return state.filter(id => id !== payload);
+      }
+      return state;
+
     default:
       return state;
   }
